@@ -1,0 +1,30 @@
+language: generic
+sudo: required
+services:
+    - docker
+
+before_install:
+    - docker build -t erolhira/react-test -f ./client/Dockerfile.dev ./client
+    #- docker build my other project..
+
+#Travis CI expects that any script returns 0 as a result, meaning successful
+#so CI=true variable is added as written here:
+#https://facebook.github.io/create-react-app/docs/running-tests#linux-macos-bash
+script:
+    - docker run -e CI=true erolhira/react-test npm test
+
+#after test scripts completed successfully, then let's begin to production
+after_success:
+    - docker build -t erolhira/docker-complex-client ./client
+    - docker build -t erolhira/docker-complex-nginx ./nginx
+    - docker build -t erolhira/docker-complex-server ./server
+    - docker build -t erolhira/docker-complex-worker ./worker
+    #Log in to the docker CLI
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+    #Take those images and push them to docker hub 
+    - docker push erolhira/docker-complex-client
+    - docker push erolhira/docker-complex-nginx
+    - docker push erolhira/docker-complex-server
+    - docker push erolhira/docker-complex-worker
+    
+
