@@ -1,0 +1,27 @@
+{
+    //a version one of this file or the syntax used within this file
+    "AWSEBDockerrunVersion": 2,
+
+
+    "containerDefinitions": [
+        {
+            //The name does not have to be identical to the project name or the folder or anything like that.
+            //This is the name of your container that's going to eventually show up on a dashboard
+            //Just to stay consistent in all things we are going to use the same name of our subproject.
+            "name": "docker-complex-client",
+
+            //The image name that is pushed to docker hub
+            "image": "erolhira/docker-complex-client",
+
+            //This name is just like the service name in the docker compose file.
+            //It is for other container definitions to be able to refer to this container definition.
+            "hostname": "client",
+
+            //essential means that this container is not considered to be essential
+            //If we marked a container as essential true and this container ever crashes for any reason whatsoever;
+            //then all the other containers in this group of containers will be closed down at the same time.
+            //NOTE: At least one service in your listing of container definitions must be marked as essential.
+            "essential": false
+        }
+    ]
+}
