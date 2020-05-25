@@ -20,11 +20,11 @@ after_success:
     - docker build -t erolhira/docker-complex-server ./server
     - docker build -t erolhira/docker-complex-worker ./worker
     #Log in to the docker CLI
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin docker.io
-    #Take those images and push them to docker hub 
+    #Take those images and push them to docker hub
+    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     - docker push erolhira/docker-complex-client
-    - docker push erolhira/docker-complex-nginx
-    - docker push erolhira/docker-complex-server
-    - docker push erolhira/docker-complex-worker
+    #- docker push erolhira/docker-complex-nginx
+    #- docker push erolhira/docker-complex-server
+    #- docker push erolhira/docker-complex-worker
     
 
