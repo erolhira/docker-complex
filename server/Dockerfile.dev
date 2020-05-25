@@ -1,0 +1,11 @@
+FROM node:alpine
+WORKDIR "/app"
+COPY ./package.json ./
+RUN npm install
+COPY ./ ./
+CMD ["npm", "run", "dev"]
+
+#nodemon is set as the starter of the node application in the package.json 
+#nodemon is a little command line tool that can be used 
+#to automatically reload your entire project 
+#ever any of the source code inside of your project has changed.
